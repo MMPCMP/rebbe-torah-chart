@@ -1,0 +1,2126 @@
+@import "tailwindcss";
+/* Supplied worksheet fonts.  The title uses Real Belet; the table copy uses
+   Hadasa, which keeps Hebrew letterforms stable in browser PDF output. */
+@font-face {
+  font-family: "Rebbe Real Belet";
+  src: url("/fonts/FbFRealBelet-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Real Belet";
+  src: url("/fonts/FbFRealBelet-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Hadasa";
+  src: url("/fonts/HadasaNewRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Hadasa";
+  src: url("/fonts/HadasaNewBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe LeBe";
+  src: url("/fonts/BA-Le-Be-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Carizma";
+  src: url("/fonts/1CarizmaBold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Shefa";
+  src: url("/fonts/AAd_ShefaClassic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Shefa";
+  src: url("/fonts/AAd_ShefaClassic-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Rebbe Eleganti";
+  src: url("/fonts/1ElegantiRegular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+.error-box {
+  max-width: 680px;
+  margin: 0 auto 18px;
+  padding: 12px 15px;
+  border: 1px solid #d9aaa3;
+  background: #fff3f1;
+  color: #8b3930;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: right;
+}
+.run-panel {
+  background: #fff;
+  border: 1px solid #dce1db;
+  border-radius: 15px;
+  padding: 20px 23px;
+  margin-bottom: 22px;
+}
+.run-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+.run-title h3,
+.run-title p {
+  margin: 0;
+}
+.run-title p,
+.run-title small {
+  color: #6e7771;
+  font-size: 12px;
+}
+.run-title p {
+  margin-top: 5px;
+}
+.source-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 16px;
+}
+.source-card {
+  display: flex;
+  gap: 10px;
+  border: 1px solid #e0e3de;
+  border-radius: 11px;
+  padding: 13px;
+}
+.source-card > span {
+  flex: 0 0 25px;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-weight: 900;
+  background: #e7eee9;
+  color: #214d3a;
+}
+.source-card.review > span {
+  background: #fff0cf;
+  color: #8a6110;
+}
+.source-card.unavailable > span {
+  background: #f8dedb;
+  color: #9a4037;
+}
+.source-card b {
+  font-size: 13px;
+}
+.source-card p {
+  font-size: 11px;
+  line-height: 1.45;
+  color: #6e7771;
+  margin: 4px 0;
+}
+.source-card a {
+  font-size: 11px;
+  color: #214d3a;
+  font-weight: 800;
+}
+.needs-review td {
+  background: #fffdf2;
+}
+.row-tools .verify {
+  font-size: 10px;
+  color: #214d3a;
+  display: block;
+  margin: auto;
+}
+.row-tools a {
+  display: block;
+  font-size: 9px;
+  color: #214d3a;
+  margin: 2px;
+}
+@media (max-width: 760px) {
+  .source-cards {
+    grid-template-columns: 1fr;
+  }
+  .run-title {
+    display: block;
+  }
+}
+:root {
+  --ink: #18221d;
+  --muted: #6e7771;
+  --paper: #fffefa;
+  --green: #214d3a;
+  --green2: #2e6750;
+  --line: #cdd2cc;
+  --cream: #f4f1e8;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #eef0ec;
+  color: var(--ink);
+  font-family: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
+}
+button,
+input,
+textarea {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+}
+.simple-head,
+.topbar {
+  height: 76px;
+  padding: 0 5vw;
+  background: #fff;
+  border-bottom: 1px solid #dfe2dc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  color: #fff;
+  border-radius: 11px;
+  font-family: Georgia, serif;
+  font-size: 24px;
+}
+.brand b,
+.brand small {
+  display: block;
+}
+.brand small {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.text-btn {
+  border: 0;
+  background: transparent;
+  color: var(--green);
+  font-weight: 700;
+}
+.primary,
+.generate-row button {
+  border: 0;
+  background: var(--green);
+  color: #fff;
+  border-radius: 10px;
+  padding: 11px 18px;
+  font-weight: 800;
+}
+.start {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 15%, #dde8df 0, transparent 28%), #f6f5ef;
+}
+.hero-card {
+  max-width: 920px;
+  margin: 70px auto 55px;
+  text-align: center;
+  padding: 0 25px;
+}
+.seal {
+  margin: auto;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #9bae9e;
+  border-radius: 50%;
+  color: var(--green);
+  font-size: 20px;
+}
+.eyebrow {
+  color: #7b847d;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  margin: 20px 0 9px;
+}
+.hero-card h1 {
+  font:
+    700 48px Georgia,
+    "Times New Roman",
+    serif;
+  margin: 0 0 13px;
+}
+.lead {
+  max-width: 620px;
+  margin: 0 auto 42px;
+  color: #657069;
+  line-height: 1.75;
+}
+.hero-card label {
+  display: block;
+  text-align: right;
+  max-width: 680px;
+  margin: auto;
+  font-size: 12px;
+  font-weight: 800;
+}
+.generate-row {
+  max-width: 680px;
+  margin: 8px auto 27px;
+  display: flex;
+  background: #fff;
+  border: 1px solid #bfc8c0;
+  border-radius: 14px;
+  padding: 6px;
+  box-shadow: 0 16px 45px #23412e14;
+}
+.generate-row input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  padding: 10px 15px;
+  font-size: 22px;
+  font-weight: 750;
+  background: transparent;
+}
+.generate-row button {
+  min-width: 180px;
+  font-size: 14px;
+}
+.source-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  color: #626c65;
+  font-size: 12px;
+}
+.source-strip i {
+  display: inline-grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: #e0e8e1;
+  color: var(--green);
+  font-style: normal;
+  font-weight: 800;
+  margin-left: 5px;
+}
+.source-strip b {
+  color: #a6aea8;
+}
+.recent {
+  max-width: 1080px;
+  margin: auto;
+  padding: 34px 28px 55px;
+  border-top: 1px solid #d9ddd7;
+}
+.recent > div:first-child {
+  text-align: center;
+}
+.recent h2 {
+  font:
+    700 27px Georgia,
+    serif;
+  margin: 0;
+}
+.recent p {
+  color: var(--muted);
+}
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 25px;
+}
+.mini-grid div {
+  background: #fff;
+  border: 1px solid #dfe2dc;
+  border-radius: 13px;
+  padding: 18px;
+}
+.mini-grid span,
+.mini-grid b,
+.mini-grid small {
+  display: block;
+}
+.mini-grid span {
+  color: #9aa29c;
+  font: 700 12px Georgia;
+}
+.mini-grid b {
+  font-size: 17px;
+  margin: 10px 0 4px;
+}
+.mini-grid small {
+  color: var(--muted);
+}
+.loading-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: #f5f4ee;
+}
+.loader-card {
+  text-align: center;
+  width: min(560px, 85vw);
+  background: #fff;
+  padding: 58px;
+  border-radius: 20px;
+  box-shadow: 0 20px 70px #223a2a1a;
+}
+.spinner {
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  background: var(--green);
+  color: white;
+  display: grid;
+  place-items: center;
+  margin: auto;
+  font: 32px Georgia;
+  animation: pulse 1.2s infinite;
+}
+.loader-card h1 {
+  font: 700 36px Georgia;
+  margin: 0 0 35px;
+}
+.progress {
+  height: 8px;
+  background: #e5e9e4;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transition: width 0.4s;
+}
+.loader-card > b,
+.loader-card small {
+  display: block;
+}
+.loader-card > b {
+  font-size: 14px;
+}
+.loader-card small {
+  color: var(--muted);
+  margin-top: 9px;
+}
+@keyframes pulse {
+  50% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+}
+.rules-page {
+  min-height: 100vh;
+  background: #f4f4ef;
+}
+.rules-page .simple-head h2 {
+  font: 700 24px Georgia;
+}
+.rules-card {
+  max-width: 880px;
+  margin: 45px auto;
+  background: white;
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: 0 15px 45px #21362812;
+}
+.rules-card > p {
+  color: var(--muted);
+  margin: 0 0 25px;
+}
+.rule {
+  display: grid;
+  grid-template-columns: 34px 1fr 28px;
+  gap: 10px;
+  align-items: center;
+  margin: 9px 0;
+}
+.rule > span {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #e3ebe5;
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+}
+.rule textarea {
+  border: 1px solid #d8ddd7;
+  border-radius: 9px;
+  padding: 11px;
+  resize: vertical;
+  min-height: 48px;
+  line-height: 1.5;
+}
+.rule button {
+  border: 0;
+  background: transparent;
+  color: #a85b51;
+  font-size: 22px;
+}
+.add-rule {
+  margin: 15px 44px 0;
+  border: 1px dashed #9ba99e;
+  background: transparent;
+  color: var(--green);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 800;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.top-actions {
+  display: flex;
+  gap: 9px;
+}
+.top-actions button {
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-size: 13px;
+  font-weight: 800;
+}
+.ghost {
+  border: 1px solid #d4d8d2;
+  background: white;
+}
+.result-shell {
+  max-width: 1160px;
+  margin: 30px auto;
+  padding: 0 25px;
+}
+.result-summary {
+  background: #fff;
+  border: 1px solid #dce1db;
+  border-radius: 15px;
+  padding: 18px 23px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+.result-summary > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+.result-summary h2,
+.result-summary p {
+  margin: 0;
+}
+.result-summary h2 {
+  font-size: 18px;
+}
+.result-summary p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+.success {
+  width: 38px;
+  height: 38px;
+  background: #dcebe0;
+  color: var(--green);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+.result-counts {
+  display: flex;
+  gap: 24px;
+}
+.result-counts span {
+  font-size: 11px;
+  color: var(--muted);
+}
+.result-counts b {
+  font-size: 18px;
+  color: var(--ink);
+  margin-left: 5px;
+}
+.paper {
+  width: min(100%, 800px);
+  margin: auto;
+  background: var(--paper);
+  box-shadow: 0 16px 50px #1f2c2418;
+  padding: 32px 38px 36px;
+  min-height: 1120px;
+  font-family: "Rebbe Hadasa", "Times New Roman", serif;
+}
+.paper-kicker {
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.paper > h1 {
+  margin: 22px 0 46px;
+  text-align: center;
+  font:
+    700 34px "Rebbe Real Belet",
+    "Times New Roman",
+    serif;
+}
+.chart-section {
+  margin: 0 0 52px;
+}
+.chart-section h2 {
+  margin: 0;
+  text-align: center;
+  font:
+    700 30px "Rebbe Real Belet",
+    "Times New Roman",
+    serif;
+}
+.section-subtitle {
+  text-align: center;
+  margin: 7px 0 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+th,
+td {
+  border: 1px solid #333;
+  text-align: center;
+  padding: 0;
+  height: 44px;
+  vertical-align: middle;
+}
+th {
+  background: white;
+  padding: 6px 3px;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+th.wide {
+  width: 18%;
+}
+td textarea {
+  display: block;
+  width: 100%;
+  height: 43px;
+  border: 0;
+  outline: 0;
+  background: #fffefa;
+  text-align: center;
+  padding: 6px 3px;
+  resize: vertical;
+}
+td span {
+  white-space: pre-line;
+  padding: 6px 3px;
+  display: block;
+}
+.year-label {
+  line-height: 1.1;
+}
+.year-label b {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+}
+.year-label small {
+  display: block;
+  font-family: "Rebbe Hadasa", Arial, sans-serif;
+  font-size: 9px;
+  color: #424842;
+  line-height: 1.25;
+  margin-top: 3px;
+}
+.row-tools {
+  width: 46px !important;
+}
+.row-tools button {
+  border: 0;
+  background: transparent;
+  color: #a45348;
+  font-size: 23px;
+}
+.add-row,
+.add-section,
+.remove-section {
+  margin: 11px auto;
+  display: block;
+  background: transparent;
+  border: 1px dashed #9eaaa0;
+  color: var(--green);
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-weight: 700;
+}
+.add-section {
+  border-style: solid;
+  background: #f7f8f4;
+}
+.remove-section {
+  color: #99483e;
+  border-color: #d5aaa4;
+  font-size: 11px;
+  padding: 5px 11px;
+}
+.custom-section h2[contenteditable="true"] {
+  outline: 1px dashed #879c8c;
+  outline-offset: 5px;
+  border-radius: 4px;
+}
+@media (max-width: 760px) {
+  .simple-head,
+  .topbar {
+    padding: 0 15px;
+  }
+  .brand small {
+    display: none;
+  }
+  .hero-card {
+    margin-top: 45px;
+  }
+  .hero-card h1 {
+    font-size: 36px;
+  }
+  .generate-row {
+    display: block;
+  }
+  .generate-row input,
+  .generate-row button {
+    width: 100%;
+  }
+  .generate-row button {
+    margin-top: 5px;
+  }
+  .source-strip {
+    gap: 7px;
+  }
+  .source-strip b {
+    display: none;
+  }
+  .mini-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .result-summary {
+    display: block;
+  }
+  .result-counts {
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .top-actions .ghost:first-child {
+    display: none;
+  }
+  .paper {
+    padding: 30px 15px;
+  }
+  .paper > h1 {
+    font-size: 28px;
+  }
+  .chart-section h2 {
+    font-size: 29px;
+  }
+  table {
+    min-width: 760px;
+  }
+  .rules-card {
+    margin: 20px 12px;
+    padding: 20px;
+  }
+  .rules-page .simple-head h2 {
+    display: none;
+  }
+}
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm 9mm 12mm;
+  }
+  body {
+    background: white;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .result-shell {
+    margin: 0;
+    padding: 0;
+    max-width: none;
+  }
+  .paper {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+  }
+  .paper > h1 {
+    margin: 13mm 0 17mm;
+    font-size: 26pt;
+  }
+  .chart-section {
+    margin-bottom: 16mm;
+    break-before: page;
+  }
+  .chart-section:first-of-type {
+    break-before: auto;
+  }
+  .chart-section h2 {
+    font-size: 23pt;
+  }
+  table {
+    font-size: 8.5pt;
+  }
+  th,
+  td {
+    height: 8.5mm;
+  }
+  th {
+    background: white !important;
+    font-size: 8pt;
+  }
+  .year-label b {
+    font-size: 13pt;
+  }
+  .year-label small {
+    font-size: 7pt;
+  }
+  tr {
+    break-inside: avoid;
+  }
+}
+
+/* When one download button is used, print only that selected chart. */
+@media print {
+  main[data-print-only="standard"] .paper:not(.standard),
+  main[data-print-only="mugah"] .paper:not(.mugah),
+  main[data-print-only="compact"] .paper:not(.compact) {
+    display: none !important;
+  }
+  .paper + .paper {
+    break-before: page;
+    page-break-before: always;
+  }
+  .mugah-grid,
+  .compact-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  }
+}
+
+.single-download {
+  display: inline-flex;
+  gap: 4px;
+}
+.chart-downloads {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  margin: 0 0 5mm;
+  padding: 8px 10px;
+  border: 1px solid #d7ddd3;
+  border-radius: 8px;
+  background: #f7f8f4;
+  font-family: "Noto Sans Hebrew", Arial, sans-serif;
+}
+.chart-downloads b {
+  margin-left: auto;
+}
+.chart-downloads button {
+  border: 1px solid #8ca08b;
+  border-radius: 6px;
+  background: #fff;
+  color: #344036;
+  padding: 6px 10px;
+  font-weight: 700;
+}
+.mugah-table input,
+.compact-table input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #9aab99;
+  border-radius: 3px;
+  padding: 4px;
+  text-align: center;
+  font: inherit;
+}
+.rules-card .rule {
+  align-items: stretch;
+}
+.rules-card .rule input {
+  min-width: 0;
+  width: 100%;
+  border: 1px solid #c8d0c4;
+  border-radius: 5px;
+  padding: 7px;
+  font: inherit;
+}
+.rules-card .rule button {
+  min-width: 34px;
+  border: 0;
+  background: #fff0ed;
+  color: #9c3427;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+/* A4 worksheet proportions copied from the supplied example. */
+.paper {
+  background: #fff;
+}
+.paper > h1 {
+  margin: 76px 0 80px;
+  font-family: "Rebbe LeBe", "Rebbe Real Belet", serif;
+  font-size: 39px;
+  letter-spacing: 0.01em;
+}
+.chart-section h2 {
+  font-family: "Rebbe Carizma", "Rebbe Real Belet", serif;
+  font-size: 35px;
+}
+.section-subtitle {
+  margin: 36px 0 13px;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+th,
+td {
+  border-color: #111;
+}
+th {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12px;
+}
+td {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 13px;
+}
+.year-label b {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 18px;
+}
+.year-label small {
+  font-size: 10px;
+}
+.volume-cell {
+  font-family: "Rebbe Hadasa", serif;
+  font-weight: 700;
+  vertical-align: middle;
+}
+.farbrengens .col-year {
+  width: 10%;
+}
+.farbrengens .col-audio {
+  width: 12%;
+}
+.farbrengens .col-video {
+  width: 12%;
+}
+.farbrengens .col-hebrew {
+  width: 10.5%;
+}
+.farbrengens .col-yiddish {
+  width: 9.5%;
+}
+.farbrengens .col-mother {
+  width: 22%;
+}
+.farbrengens .col-family {
+  width: 16%;
+}
+.farbrengens .col-learned {
+  width: 8%;
+}
+.sichos .col-year {
+  width: 19%;
+}
+.sichos .col-audio,
+.sichos .col-video {
+  width: 10%;
+}
+.sichos .col-hebrew,
+.sichos .col-yiddish {
+  width: 10%;
+}
+.sichos .col-mother {
+  width: 19%;
+}
+.sichos .col-family {
+  width: 15%;
+}
+.sichos .col-learned {
+  width: 7%;
+}
+.maamarim .col-year {
+  width: 12%;
+}
+.maamarim .col-dibur {
+  width: 28%;
+}
+.maamarim .col-pages {
+  width: 11%;
+}
+.maamarim .col-mother {
+  width: 22%;
+}
+.maamarim .col-family {
+  width: 18%;
+}
+.maamarim .col-learned {
+  width: 9%;
+}
+.likutei .col-volume {
+  width: 14%;
+}
+.likutei .col-item {
+  width: 37%;
+}
+.likutei .col-mother {
+  width: 22%;
+}
+.likutei .col-family {
+  width: 18%;
+}
+.likutei .col-learned {
+  width: 9%;
+}
+/* The supplied worksheet is an A4 sheet with 11.5 mm side margins: its
+   table is therefore exactly 187 mm wide.  These print measurements preserve
+   that geometry regardless of the screen size from which the PDF is saved. */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  .paper {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 7.5mm 11.5mm 10mm;
+    margin: 0;
+  }
+  .paper-kicker {
+    font-size: 11pt;
+    line-height: 1;
+  }
+  /* Directly matched to the supplied Word worksheet: BA LeBe 36 pt title,
+     compact section heading, 14 pt subtitle and table headings. */
+  .paper > h1 {
+    margin: 18mm 0 17mm;
+    font-family: "Rebbe LeBe", "Rebbe Real Belet", serif;
+    font-size: 36pt;
+    font-weight: 400;
+    line-height: 1.04;
+  }
+  .chart-section h2 {
+    font-family: "Rebbe Carizma", "Rebbe Real Belet", serif;
+    font-size: 18pt;
+    line-height: 1.05;
+  }
+  .section-subtitle {
+    margin: 9mm 0 3.8mm;
+    font-size: 14pt;
+    line-height: 1.2;
+  }
+  .table-wrap {
+    overflow: visible;
+  }
+  table {
+    font-size: 13pt;
+  }
+  th,
+  td {
+    height: 9.6mm;
+  }
+  th {
+    font-size: 14pt;
+    line-height: 1.12;
+    padding: 1.4mm 0.6mm;
+  }
+  td {
+    padding: 0.3mm 0.6mm;
+  }
+  .year-label b {
+    font-size: 15pt;
+    line-height: 1;
+  }
+  .year-label small {
+    font-size: 9pt;
+    line-height: 1.13;
+    margin-top: 1mm;
+  }
+}
+
+/* Clear review markers and compact controls for the editable working copy. */
+.empty-value {
+  font-family: Arial, sans-serif !important;
+  font-size: 18px;
+  line-height: 1;
+  color: #222;
+  padding: 0 !important;
+}
+.mugah {
+  margin-right: 1.2mm;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  color: inherit !important;
+  white-space: nowrap;
+}
+.needs-review td {
+  background: #fff8dc;
+}
+.review-flag {
+  display: inline-grid !important;
+  place-items: center !important;
+  width: 16px;
+  height: 16px;
+  margin: 3px auto 0;
+  padding: 0 !important;
+  border-radius: 50%;
+  background: #bf6d19 !important;
+  color: #fff;
+  font: 11px Arial !important;
+  vertical-align: middle;
+}
+.review-key {
+  font-family: "Noto Sans Hebrew", Arial, sans-serif;
+  font-size: 10px;
+  color: #8a5d19;
+  margin: 5px 0 0;
+  text-align: right;
+}
+.edit-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1px;
+}
+.edit-tools button {
+  font-size: 16px;
+  line-height: 1;
+  padding: 3px;
+}
+.review-note {
+  display: block;
+  color: #8a5d19;
+  font-size: 9px;
+  line-height: 1.2;
+  margin: 4px 1px;
+}
+.likutei .col-volume {
+  width: 13%;
+}
+.likutei .col-item {
+  width: 29%;
+}
+.likutei .col-pages {
+  width: 9%;
+}
+.likutei .col-mother {
+  width: 22%;
+}
+.likutei .col-family {
+  width: 18%;
+}
+.likutei .col-learned {
+  width: 9%;
+}
+
+/* Fixed A4 worksheet specification.  Physical units make the downloaded PDF
+   consistent regardless of the browser or computer used to create it. */
+.paper {
+  width: min(210mm, 100%);
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 10mm 12mm 12mm;
+  background: #fff;
+  font-family: "Rebbe Hadasa", serif;
+  box-shadow: 0 16px 50px #1f2c2418;
+}
+.paper-kicker {
+  margin: 2mm 0 0;
+  text-align: center;
+  font-family: "Rebbe LeBe", serif;
+  font-size: 16pt;
+  font-weight: 400;
+  line-height: 1;
+}
+.paper > h1 {
+  margin: 2mm 0 4mm;
+  text-align: center;
+  font-family: "Rebbe LeBe", serif;
+  font-size: 35pt;
+  font-weight: 400;
+  line-height: 1.06;
+  letter-spacing: 0;
+}
+.chart-section {
+  margin: 5mm 0 7mm;
+  break-inside: avoid-page;
+}
+.chart-section h2 {
+  margin: 0 0 1.5mm;
+  text-align: center;
+  font-family: "Rebbe Carizma", serif;
+  font-size: 36pt;
+  font-weight: 700;
+  line-height: 0.95;
+}
+.section-subtitle {
+  margin: 0 0 3mm;
+  text-align: center;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 14pt;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.table-wrap {
+  width: 100%;
+  overflow: visible;
+}
+.chart-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  direction: rtl;
+}
+.chart-table th,
+.chart-table td {
+  border: 0.5pt solid #a6a6a6;
+  background: #fff;
+  text-align: center;
+  vertical-align: middle;
+  color: #111;
+}
+.chart-table th {
+  height: 15.8mm;
+  padding: 2.5mm 1.5mm;
+  font-family: "Rebbe Shefa", serif;
+  font-size: 18pt;
+  font-weight: 700;
+  line-height: 0.98;
+}
+.chart-table td {
+  height: 9.6mm;
+  padding: 1.2mm 1.5mm;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1;
+}
+.chart-table th:nth-child(4),
+.chart-table th:nth-child(5) {
+  font-size: 14pt;
+  line-height: 0.95;
+}
+.chart-table td span {
+  display: block;
+  padding: 0;
+  white-space: pre-line;
+}
+.chart-table td textarea {
+  height: 100%;
+  min-height: 8mm;
+  padding: 1.2mm 1.5mm;
+  background: #fff;
+  text-align: center;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1;
+}
+.chart-table tr:has(.year-label small) td {
+  height: 12.7mm;
+}
+.year-label {
+  line-height: 0.9;
+}
+.year-label b {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 0.95;
+}
+.year-label small {
+  margin: 0.5mm 0 0;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 9.3pt;
+  font-weight: 700;
+  line-height: 0.9;
+  color: #111;
+}
+.chart-table td:nth-child(2),
+.chart-table td:nth-child(3),
+.chart-table td:nth-child(4),
+.chart-table td:nth-child(5) {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 15.3pt;
+  font-weight: 400;
+}
+.chart-table.maamarim td:nth-child(3),
+.chart-table.likutei td:nth-child(3) {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 16pt;
+  font-weight: 400;
+}
+.chart-table.maamarim td:nth-child(2),
+.chart-table.likutei td:nth-child(2) {
+  padding-right: 2mm;
+  padding-left: 2mm;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1;
+}
+.volume-cell,
+.chart-table.likutei td:first-child {
+  font-family: "Rebbe Carizma", serif !important;
+  font-size: 20pt !important;
+  font-weight: 700 !important;
+  line-height: 1;
+}
+.mugah {
+  margin-right: 1.2mm;
+  font-family: "Rebbe Eleganti", serif !important;
+  font-size: 12pt !important;
+  font-weight: 400 !important;
+  color: #b7b7b7;
+}
+.empty-value {
+  font-family: "Rebbe Shefa", serif !important;
+  font-size: 16pt !important;
+  font-weight: 400 !important;
+  color: #111;
+}
+.review-key {
+  margin: 1.5mm 0 0;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 9pt;
+  text-align: right;
+}
+
+/* Exact section proportions, written in RTL visual order. */
+.farbrengens .col-year {
+  width: 10.21%;
+}
+.farbrengens .col-audio {
+  width: 11.89%;
+}
+.farbrengens .col-video {
+  width: 12.21%;
+}
+.farbrengens .col-hebrew {
+  width: 10.43%;
+}
+.farbrengens .col-yiddish {
+  width: 9.21%;
+}
+.farbrengens .col-mother {
+  width: 22.04%;
+}
+.farbrengens .col-family {
+  width: 15.84%;
+}
+.farbrengens .col-learned {
+  width: 8.17%;
+}
+.sichos .col-year {
+  width: 10.2%;
+}
+.sichos .col-audio {
+  width: 9.66%;
+}
+.sichos .col-video {
+  width: 9.49%;
+}
+.sichos .col-hebrew {
+  width: 10.2%;
+}
+.sichos .col-yiddish {
+  width: 10.18%;
+}
+.sichos .col-mother {
+  width: 14.23%;
+}
+.sichos .col-family {
+  width: 14.6%;
+}
+.sichos .col-learned {
+  width: 21.44%;
+}
+.maamarim .col-year {
+  width: 12.74%;
+}
+.maamarim .col-dibur {
+  width: 26.49%;
+}
+.maamarim .col-pages {
+  width: 10.42%;
+}
+.maamarim .col-mother {
+  width: 25.52%;
+}
+.maamarim .col-family {
+  width: 16.3%;
+}
+.maamarim .col-learned {
+  width: 8.56%;
+}
+.likutei .col-volume {
+  width: 12.33%;
+}
+.likutei .col-item {
+  width: 21.18%;
+}
+.likutei .col-pages {
+  width: 11.29%;
+}
+.likutei .col-mother {
+  width: 28.1%;
+}
+.likutei .col-family {
+  width: 18.73%;
+}
+.likutei .col-learned {
+  width: 8.37%;
+}
+.chart-table.farbrengens td:nth-child(n + 6),
+.chart-table.maamarim td:nth-child(2),
+.chart-table.maamarim td:nth-child(n + 4),
+.chart-table.likutei td:nth-child(2),
+.chart-table.likutei td:nth-child(n + 4) {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body {
+    background: #fff;
+  }
+  .result-shell {
+    margin: 0 auto;
+    padding: 0;
+    max-width: none;
+  }
+  .paper {
+    width: 187mm;
+    min-height: 0;
+    margin: 0 auto;
+    padding: 10mm 0 12mm;
+    box-shadow: none;
+  }
+  .paper-kicker {
+    margin-top: 0;
+    font-size: 16pt;
+  }
+  .paper > h1 {
+    margin: 2mm 0 4mm;
+    font-size: 35pt;
+  }
+  .chart-section {
+    margin: 5mm 0 7mm;
+    break-before: auto;
+    break-inside: auto;
+    page-break-before: auto;
+    page-break-inside: auto;
+  }
+  .chart-section h2 {
+    font-size: 36pt;
+  }
+  .section-subtitle {
+    margin: 0 0 3mm;
+    font-size: 14pt;
+  }
+  .chart-table {
+    font-size: 12pt;
+  }
+  .chart-table th {
+    height: 15.8mm;
+    padding: 2.5mm 1.5mm;
+    font-size: 18pt;
+  }
+  .chart-table td {
+    height: 9.6mm;
+    padding: 1.2mm 1.5mm;
+    font-size: 12pt;
+  }
+  .chart-table th:nth-child(4),
+  .chart-table th:nth-child(5) {
+    font-size: 14pt;
+  }
+  .chart-table tr:has(.year-label small) td {
+    height: 12.7mm;
+  }
+  .year-label b {
+    font-size: 12pt;
+  }
+  .year-label small {
+    font-size: 9.3pt;
+  }
+  .chart-table td:nth-child(2),
+  .chart-table td:nth-child(3),
+  .chart-table td:nth-child(4),
+  .chart-table td:nth-child(5) {
+    font-size: 15.3pt;
+  }
+  .chart-table.maamarim td:nth-child(3),
+  .chart-table.likutei td:nth-child(3) {
+    font-size: 16pt;
+  }
+  .volume-cell,
+  .chart-table.likutei td:first-child {
+    font-size: 20pt !important;
+  }
+  .chart-table thead {
+    display: table-row-group;
+  }
+  tr {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+}
+
+/* Final type scale: these class rules are used by the sheet, PDF and Word
+   export, rather than relying on a column's physical position. */
+.chart-table th {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 18pt;
+}
+.chart-table.farbrengens th {
+  font-size: 14pt;
+}
+.chart-table.farbrengens th.col-mother,
+.chart-table.farbrengens th.col-family {
+  font-size: 18pt;
+}
+.chart-table:not(.farbrengens) th.col-audio,
+.chart-table:not(.farbrengens) th.col-video,
+.chart-table:not(.farbrengens) th.col-pages,
+.chart-table:not(.farbrengens) th.col-learned {
+  font-size: 14pt;
+}
+.chart-table.likutei th.col-pages {
+  font-size: 18pt;
+}
+.chart-table td.col-year,
+.chart-table td.col-dibur,
+.chart-table td.col-item,
+.chart-table td.col-mother,
+.chart-table td.col-family,
+.chart-table td.col-learned {
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+}
+/* Lekutei titles, including הוספות page ranges, must never inherit Shefa. */
+.chart-table.likutei td.col-item {
+  font-family: "Rebbe Hadasa", serif !important;
+  font-size: 12pt !important;
+  font-weight: 700;
+}
+.chart-table td.col-audio,
+.chart-table td.col-video {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 15pt;
+  font-weight: 400;
+}
+
+.year-source-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(117, 81, 25, 0.45);
+}
+
+.video-breakdown {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  cursor: help;
+  outline: none;
+}
+
+.video-total {
+  border-bottom: 1px dotted currentColor;
+}
+
+.video-popover {
+  position: absolute;
+  z-index: 30;
+  bottom: calc(100% + 8px);
+  right: 50%;
+  width: min(380px, 82vw);
+  max-height: 280px;
+  overflow: auto;
+  transform: translateX(50%) translateY(4px);
+  padding: 12px;
+  border: 1px solid #cbb27d;
+  border-radius: 8px;
+  background: #fffdf7;
+  box-shadow: 0 12px 32px rgba(59, 42, 16, 0.2);
+  color: #292012;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: right;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, transform 120ms ease;
+}
+
+.video-breakdown:hover .video-popover,
+.video-breakdown:focus-within .video-popover,
+.video-breakdown:focus .video-popover {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(50%) translateY(0);
+}
+
+.video-popover > b,
+.video-popover > small {
+  display: block;
+}
+
+.video-popover > b {
+  margin-bottom: 8px;
+}
+
+.video-popover > small {
+  margin-top: 8px;
+  color: #746343;
+}
+
+.video-item {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: start;
+  padding: 7px 0;
+  border-top: 1px solid rgba(117, 81, 25, 0.14);
+}
+
+.video-item button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #c7b58d;
+  border-radius: 50%;
+  background: white;
+  color: #74531e;
+  cursor: pointer;
+}
+
+.video-item i {
+  direction: ltr;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+}
+
+@media print {
+  .video-popover {
+    display: none !important;
+  }
+  .video-total {
+    border-bottom: 0;
+  }
+}
+.chart-table td.col-hebrew,
+.chart-table td.col-yiddish,
+.chart-table td.col-pages {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 16pt;
+  font-weight: 400;
+}
+.chart-table.likutei td.col-pages {
+  font-size: 14pt !important;
+}
+
+@media print {
+  @page {
+    size: auto;
+    margin: 0;
+  }
+  html,
+  body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .result-shell {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .paper {
+    width: 187mm !important;
+    max-width: 187mm !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+.chart-table.likutei td.col-item .empty-value,
+.chart-table.likutei td.col-item .mugah {
+  font-family: "Rebbe Hadasa", serif !important;
+  font-size: 12pt !important;
+}
+.chart-table.likutei td.col-item .hosafos-value {
+  font-size: 12pt !important;
+  font-weight: 700;
+  white-space: normal;
+}
+.chart-table.likutei td.col-item .hosafos-letters {
+  font-family: "Rebbe Hadasa", serif !important;
+  font-size: 12pt;
+  font-style: normal;
+  font-weight: 700;
+}
+.chart-table.likutei td.col-item .hosafos-number {
+  font-family: "Rebbe Shefa", serif !important;
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+@media print {
+  .review-flag,
+  .review-key {
+    display: none !important;
+  }
+  .needs-review td {
+    background: #fff !important;
+  }
+  .chart-table th {
+    font-size: 18pt;
+  }
+  .chart-table.farbrengens th {
+    font-size: 14pt;
+  }
+  .chart-table.farbrengens th.col-mother,
+  .chart-table.farbrengens th.col-family {
+    font-size: 18pt;
+  }
+  .chart-table:not(.farbrengens) th.col-audio,
+  .chart-table:not(.farbrengens) th.col-video,
+  .chart-table:not(.farbrengens) th.col-pages,
+  .chart-table:not(.farbrengens) th.col-learned {
+    font-size: 14pt;
+  }
+  .chart-table.likutei th.col-pages {
+    font-size: 18pt;
+  }
+  .chart-table td.col-year,
+  .chart-table td.col-dibur,
+  .chart-table td.col-item,
+  .chart-table td.col-mother,
+  .chart-table td.col-family,
+  .chart-table td.col-learned {
+    font-size: 12pt;
+  }
+  .chart-table td.col-audio,
+  .chart-table td.col-video {
+    font-size: 15pt;
+  }
+  .chart-table td.col-hebrew,
+  .chart-table td.col-yiddish,
+  .chart-table td.col-pages {
+    font-size: 16pt;
+  }
+  .chart-table.likutei td.col-pages {
+    font-size: 14pt !important;
+  }
+}
+
+/* Center from the physical paper, not from a nested RTL layout.  This works
+   with the browser's selected A4 or US Letter paper size. */
+@media print {
+  /* Keep the printable worksheet in a left-to-right outer frame.  RTL auto
+     margins can otherwise shift the sheet or crop its first table column. */
+  .result-shell {
+    display: block !important;
+    direction: ltr !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+  .paper {
+    box-sizing: border-box !important;
+    direction: rtl !important;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    right: auto !important;
+    width: 187mm !important;
+    max-width: 187mm !important;
+    margin: 0 auto !important;
+    padding: 10mm 0 12mm !important;
+  }
+}
+
+/* Final physical centering for both A4 and US Letter PDF output. */
+@media print {
+  @page {
+    size: auto;
+    margin: 0;
+  }
+  html,
+  body {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    direction: ltr !important;
+  }
+  .result-shell {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    align-items: start !important;
+    width: 100vw !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    direction: ltr !important;
+  }
+  .paper {
+    width: 187mm !important;
+    max-width: 187mm !important;
+    margin: 0 !important;
+    direction: rtl !important;
+  }
+}
+
+.site-memorial,
+.paper-memorial {
+  font-family: "Rebbe LeBe", "Rebbe Real Belet", serif;
+  font-size: 10pt;
+  line-height: 1.2;
+  text-align: center;
+  color: #111;
+}
+.site-memorial {
+  padding: 22px 16px 26px;
+}
+.paper-memorial {
+  margin: 8mm 0 0;
+}
+.site-memorial strong,
+.paper-memorial strong {
+  font-weight: 700;
+}
+.chart-type-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 17px 0 3px;
+}
+.chart-type-picker button {
+  min-height: 64px;
+  border: 1px solid #d3d7ce;
+  border-radius: 9px;
+  background: #fff;
+  text-align: right;
+  padding: 9px 11px;
+  color: #344036;
+}
+.chart-type-picker button.selected {
+  border-color: #61775f;
+  background: #eef3eb;
+  box-shadow: inset 0 0 0 1px #61775f;
+}
+.chart-type-picker b,
+.chart-type-picker small {
+  display: block;
+}
+.chart-type-picker b {
+  font-size: 13px;
+}
+.chart-type-picker small {
+  margin-top: 3px;
+  font-size: 10px;
+  line-height: 1.15;
+  color: #687067;
+}
+.mugah.paper,
+.compact.paper {
+  padding-top: 7mm;
+}
+.mugah.paper > h1,
+.compact.paper > h1 {
+  margin: 3mm 0 7mm;
+  font-family: "Rebbe LeBe", "Rebbe Real Belet", serif;
+  font-size: 29pt;
+  line-height: 1.05;
+}
+.mugah-grid,
+.compact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm;
+  direction: rtl;
+}
+.mugah-table,
+.compact-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  direction: rtl;
+}
+.mugah-table th,
+.compact-table th {
+  height: 9mm;
+  padding: 1mm;
+  font-family: "Rebbe Shefa", serif;
+  font-size: 15pt;
+  font-weight: 700;
+}
+.mugah-table td,
+.compact-table td {
+  height: 6.1mm;
+  padding: 0.8mm 1mm;
+  font-family: "Rebbe Hadasa", serif;
+  font-size: 12pt;
+  font-weight: 700;
+  line-height: 1;
+}
+.mugah-table tbody tr {
+  height: 12mm;
+}
+.mugah-table tbody td {
+  height: 12mm;
+  box-sizing: border-box;
+}
+.mugah-table td:nth-child(2) {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  line-height: 1.15;
+}
+.mugah-table td:nth-child(2) span {
+  white-space: normal !important;
+}
+.mugah-table th,
+.mugah-table td,
+.compact-table th,
+.compact-table td {
+  border: 0.5pt solid #111;
+  text-align: center;
+  vertical-align: middle;
+}
+.mugah-table th:nth-child(1) {
+  width: 22%;
+}
+.mugah-table th:nth-child(2) {
+  width: 58%;
+}
+.mugah-table th:nth-child(3) {
+  width: 20%;
+}
+.mugah-table td:nth-child(3),
+.compact-table td:not(:first-child) {
+  font-family: "Rebbe Shefa", serif;
+  font-size: 14pt;
+  font-weight: 400;
+}
+.compact-table th {
+  font-size: 12pt;
+  line-height: 0.9;
+}
+.compact-table td .year-label b {
+  font-size: 11.5pt;
+}
+.compact-table td .year-label small {
+  font-size: 8pt;
+  line-height: 0.9;
+}
+.compact-table td {
+  height: 8.1mm;
+}
+.compact-table th:first-child {
+  width: 24%;
+}
+.split-print-table {
+  display: none;
+}
+@media print {
+  .site-memorial {
+    display: none !important;
+  }
+  .paper {
+    position: relative !important;
+  }
+  .paper-memorial {
+    position: absolute !important;
+    top: 286mm !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    z-index: 3;
+  }
+}
+@media (max-width: 760px) {
+  .chart-type-picker {
+    grid-template-columns: 1fr;
+  }
+  .mugah-grid,
+  .compact-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2mm;
+  }
+  .mugah.paper,
+  .compact.paper {
+    padding-right: 7mm;
+    padding-left: 7mm;
+  }
+}
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  .mugah-grid,
+  .compact-grid {
+    display: none !important;
+  }
+  .split-print-table {
+    display: table !important;
+    width: 187mm !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    break-inside: auto;
+  }
+  .split-print-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .mugah.paper,
+  .compact.paper {
+    width: 187mm !important;
+    min-height: 297mm !important;
+    padding: 7mm 0 12mm !important;
+  }
+  .mugah.paper > h1,
+  .compact.paper > h1 {
+    margin: 3mm 0 7mm;
+    font-size: 29pt;
+  }
+  .mugah-grid,
+  .compact-grid {
+    gap: 3mm;
+  }
+  .mugah-table th,
+  .compact-table th {
+    height: 9mm;
+    font-size: 15pt;
+  }
+  .mugah-table td,
+  .compact-table td {
+    height: 6.1mm;
+    font-size: 12pt;
+  }
+  .compact-table th {
+    font-size: 12pt;
+  }
+  .compact-table td {
+    height: 8.1mm;
+  }
+  .mugah-table.split-print-table th:nth-child(1),
+  .mugah-table.split-print-table th:nth-child(4) {
+    width: 11%;
+  }
+  .mugah-table.split-print-table th:nth-child(2),
+  .mugah-table.split-print-table th:nth-child(5) {
+    width: 29%;
+  }
+  .mugah-table.split-print-table th:nth-child(3),
+  .mugah-table.split-print-table th:nth-child(6) {
+    width: 10%;
+  }
+  .compact-table.split-print-table th:nth-child(1),
+  .compact-table.split-print-table th:nth-child(6) {
+    width: 12%;
+  }
+  .compact-table.split-print-table th:not(:nth-child(1)):not(:nth-child(6)) {
+    width: 9.5%;
+  }
+}
+
+/* Every selected chart starts on its own sheet. Its dedication is anchored
+   inside that chart's first physical A4 page, even when the chart continues. */
+@media print {
+  .paper {
+    box-sizing: border-box !important;
+    position: relative !important;
+    min-height: 297mm !important;
+    break-before: page;
+    page-break-before: always;
+  }
+  .paper:first-of-type {
+    break-before: auto;
+    page-break-before: auto;
+  }
+  .paper-memorial {
+    display: block !important;
+    position: absolute !important;
+    top: 286mm !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+}
